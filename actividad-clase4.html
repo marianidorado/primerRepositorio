@@ -20,25 +20,17 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-h1, h2 {
-  color: #2c3e50;
-}
+h1, h2 { color: #2c3e50; }
+h1 { text-align: center; }
 
-h1 {
-  text-align: center;
-}
+.section { margin-top: 30px; }
 
-.section {
-  margin-top: 30px;
-}
-
-label {
-  font-weight: bold;
-}
+label { font-weight: bold; }
 
 .line {
   border-bottom: 1px solid #ccc;
   margin: 8px 0 16px 0;
+  padding-bottom: 4px;
 }
 
 table {
@@ -53,9 +45,7 @@ th, td {
   text-align: center;
 }
 
-th {
-  background-color: #e9eef3;
-}
+th { background-color: #e9eef3; }
 
 .note {
   background: #eef7ff;
@@ -79,27 +69,41 @@ th {
 <h1>🌐 Actividad Clase 4</h1>
 <h2>Comunicación entre Servicios + REST + Eventos + Service Discovery</h2>
 
-<p><strong>Equipo:</strong> ____________________</p>
-<p><strong>Proyecto:</strong> ____________________</p>
+<p><strong>Equipo:</strong> Juan David, Kenny, Diego, Jimmy</p>
+<p><strong>Proyecto:</strong> JKD-CLOTHING</p>
 
 <div class="section">
 <h2>🪜 1. Interacciones entre Servicios</h2>
 
 <p><strong>Interacción 1</strong></p>
-<label>Servicio que envía:</label>
-<div class="line"></div>
-<label>Servicio que recibe:</label>
-<div class="line"></div>
+<label>Servicio que envía: </label>
+<div class="line">Frontend (Vista de Producto)</div>
+<label>Servicio que recibe: </label>
+<div class="line">Servicio de Recomendaciones</div>
 <label>Información enviada:</label>
-<div class="line"></div>
+<div class="line">ID del producto consultado, categoría, historial básico del usuario.</div>
 <label>¿Qué sucede si no responde?</label>
-<div class="line"></div>
+<div class="line">La tienda se muestra normal, pero sin sugerencias de productos relacionados.</div>
 
 <p><strong>Interacción 2</strong></p>
-<div class="line"></div>
+<label>Servicio que envía: </label>
+<div class="line">Gestión de Pedidos</div>
+<label>Servicio que recibe: </label>
+<div class="line">Servicio de Facturación</div>
+<label>Información enviada:</label>
+<div class="line">ID del pedido, valor total, datos del cliente.</div>
+<label>¿Qué sucede si no responde?</label>
+<div class="line">El pedido se guarda, pero la factura no se genera de inmediato; queda pendiente para reintento.</div>
 
 <p><strong>Interacción 3</strong></p>
-<div class="line"></div>
+<label>Servicio que envía: </label>
+<div class="line">Servicio de Usuarios</div>
+<label>Servicio que recibe: </label>
+<div class="line">Servicio de Auditoría / Logs</div>
+<label>Información enviada:</label>
+<div class="line">Evento de inicio de sesión exitoso o fallido, fecha y hora.</div>
+<label>¿Qué sucede si no responde?</label>
+<div class="line">El login funciona, pero no se registra el evento en los logs para auditoría.</div>
 </div>
 
 <div class="section">
@@ -115,20 +119,20 @@ th {
 <tr>
 <td>1</td>
 <td></td>
-<td></td>
-<td></td>
+<td>✔</td>
+<td>Las recomendaciones se actualizan como respuesta a un evento “Producto Visto”.</td>
 </tr>
 <tr>
 <td>2</td>
 <td></td>
-<td></td>
-<td></td>
+<td>✔</td>
+<td>La facturación se dispara cuando ocurre el evento “Pedido Confirmado”.</td>
 </tr>
 <tr>
 <td>3</td>
 <td></td>
-<td></td>
-<td></td>
+<td>✔</td>
+<td>El registro de auditoría se maneja mejor por eventos sin afectar el login.</td>
 </tr>
 </table>
 </div>
@@ -146,59 +150,59 @@ th {
 <tr>
 <td>1</td>
 <td></td>
-<td></td>
-<td></td>
+<td>✔</td>
+<td>Las recomendaciones no son críticas para continuar navegando.</td>
 </tr>
 <tr>
 <td>2</td>
 <td></td>
-<td></td>
-<td></td>
+<td>✔</td>
+<td>La facturación puede generarse después de finalizar el pedido.</td>
 </tr>
 <tr>
 <td>3</td>
 <td></td>
-<td></td>
-<td></td>
+<td>✔</td>
+<td>El registro de logs no debe afectar la experiencia del usuario.</td>
 </tr>
 </table>
 </div>
 
 <div class="section">
 <h2>🪜 4. Eventos Importantes del Sistema</h2>
-1️⃣ ______________________________________<br><br>
-2️⃣ ______________________________________<br><br>
-3️⃣ ______________________________________
+1️⃣ Producto visto por el usuario<br><br>
+2️⃣ Pedido confirmado<br><br>
+3️⃣ Usuario inició sesión
 </div>
 
 <div class="section">
 <h2>🪜 5. Análisis de Fallos</h2>
 <label>Servicio más crítico:</label>
-<div class="line"></div>
+<div class="line">Servicio de Autenticación (Usuarios/Login)</div>
 <label>¿Qué pasaría si falla?</label>
-<div class="line"></div>
+<div class="line">Los usuarios no podrían iniciar sesión ni realizar compras.</div>
 <label>¿El sistema debe detenerse o continuar?</label>
-<div class="line"></div>
+<div class="line">Puede seguir mostrando productos, pero no permitir acciones que requieran cuenta.</div>
 <label>¿Cómo podrían manejar este fallo?</label>
-<div class="line"></div>
+<div class="line">Autenticación redundante, caché de sesiones, reintentos y monitoreo continuo.</div>
 </div>
 
 <div class="section">
 <h2>🪜 6. Service Discovery</h2>
 <label>¿Qué problema ocurre si cambia la IP de un servicio?</label>
-<div class="line"></div>
+<div class="line">Los servicios que dependan de esa IP no podrán conectarse.</div>
 <label>¿Cómo sabría un servicio dónde encontrar otro?</label>
-<div class="line"></div>
+<div class="line">Consultando el registro central del Service Discovery.</div>
 <label>¿Por qué sería útil Service Discovery?</label>
-<div class="line"></div>
+<div class="line">Permite escalar servicios automáticamente y balancear carga.</div>
 <label>¿Dónde lo aplicarían en su sistema?</label>
-<div class="line"></div>
+<div class="line">Entre Frontend, Recomendaciones, Facturación y Usuarios.</div>
 </div>
 
 <div class="section">
 <h2>🪜 7. Mini Diagrama</h2>
 <p>Dibujen:</p>
-<p><strong>Servicio A → Service Discovery → Servicio B</strong></p>
+<p><img src="file.jpeg" alt="Diagrama" width="900px"></p>
 </div>
 
 <div class="note">
@@ -212,9 +216,9 @@ Service Discovery → permite encontrar servicios automáticamente
 
 <div class="footer">
 🎤 El equipo debe poder explicar:<br>
-✔ una interacción importante<br>
-✔ un evento del sistema<br>
-✔ qué pasa si un servicio falla<br>
+✔ una interacción no crítica (recomendaciones)<br>
+✔ un evento del sistema (pedido confirmado)<br>
+✔ qué pasa si falla el login<br>
 ✔ dónde usarían Service Discovery
 </div>
 
